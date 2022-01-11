@@ -2,12 +2,15 @@ const express= require('express');
 
 const mongoose=require('mongoose');
 const bodyParser=require('body-parser');
+const cors=require('cors');
 const app=express();
+
 require('dotenv/config');
 
 app.use(bodyParser.json());
+app.use(cors())
 
-const postsRoute=require('./routes/post');
+const postsRoute=require('./routes/posts');
 
 app.use('/posts',postsRoute); 
  
@@ -16,8 +19,9 @@ app.get('/',(req,res)=>{
 });
 
    
-app.listen(3000);
+
 
 mongoose.connect(process.env.DB_CONNECTION,()=>{
     console.log('connected to DB')
 })
+app.listen(3000);
